@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item Table</title>
+</head>
+<body>
+    {% for category in categories %}
+    <h2>{{ category['category'] }}</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <!-- <th>Overall Index</th> -->
+                <th>Name</th>
+                <th>Code</th>
+                <th>In</th>
+                <th>RM</th>
+                <th>RE</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in category['items'] %}
+            <tr>
+                <!-- <td>{{ item['overall_index'] }}</td> -->
+                <td>{{ item['Name'] }}</td>
+                <td>{{ item['Code'] }}</td>
+                <td>{{ item['In'] }}</td>
+                <td>{{ item['RM'] }}</td>
+                <td>{{ item['RE'] }}</td>
+                <td>
+                    <form method="POST" action="/update">
+                        <input type="hidden" name="item_index" value="{{ item['overall_index'] }}">
+                        <button type="submit" name="action" value="increase_in">IN +</button>
+                        <button type="submit" name="action" value="decrease_in">IN -</button>
+                        <button type="submit" name="action" value="increase_rm">RM +</button>
+                        <button type="submit" name="action" value="decrease_rm">RM -</button>
+                        <button type="submit" name="action" value="increase_re">RE +</button>
+                        <button type="submit" name="action" value="decrease_re">RE -</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    <form method="GET" action="/export-excel">
+        <br>
+        <button type="submit">Export to Excel</button>
+    </form>
+    <form method="POST" action="/reset-data">
+        <br>
+        <button type="submit" >Reset Data</button>
+    </form>
+</body>
+</html>
